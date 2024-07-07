@@ -31,6 +31,20 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+	implementation 'org.seleniumhq.selenium:selenium-java'
+	implementation 'org.seleniumhq.selenium:selenium-firefox-driver'
+	implementation 'org.seleniumhq.selenium:selenium-chrome-driver'
+
+	//jinout
+	// https://mvnrepository.com/artifact/us.ihmc/jinput
+	implementation 'us.ihmc:jinput:2.0.6-ihmc2'
+// https://mvnrepository.com/artifact/net.java.jinput/jinput-platform
+	implementation 'net.java.jinput:jinput-platform:2.0.6'
+
+
+
+
 }
 
 tasks.named('test') {
