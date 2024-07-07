@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.hardy.server.service.LogService;
-import ru.hardy.server.service.SwitchService;
 
 @Slf4j
 @RestController
@@ -14,10 +13,14 @@ import ru.hardy.server.service.SwitchService;
 @RequestMapping("/v1/log")
 public class LogController {
 
-//    private final LogService logService;
+    private final LogService logService;
 
     @GetMapping("file")
-    public void file() {
+    public void writeToFile() {
         log.info("LogController file()");
+
+            logService.writeToFile();
+
     }
+
 }

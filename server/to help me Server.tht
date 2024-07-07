@@ -18,3 +18,14 @@ https://wiki.archlinux.org/title/Multi-pointer_X
 Jinput
 https://stackoverflow.com/questions/66151864/make-2-cursors-on-the-same-pc-using-java
 https://jinput.github.io/jinput/
+
+
+application.properties
+https://habr.com/ru/articles/740802/
+https://docs.spring.io/spring-boot/appendix/application-properties/index.html
+
+
+swagger
+// входная точка
+http://localhost:8080/swagger-ui/index.html         порт 8080  для client
+http://localhost:8082/swagger-ui/index.html         порт 8082  для server

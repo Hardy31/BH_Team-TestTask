@@ -18,12 +18,13 @@ public class SwitchController {
     @GetMapping("/start")
     public void start() {
         log.info("SwitchController start()");
-        switchService.start();
+        switchService.on();
     }
 
     @GetMapping("/stop")
     public void stop() {
         log.info("SwitchController stop()");
+        switchService.off();
     }
 
 

@@ -1,43 +1,59 @@
 package ru.hardy.server.service.frame;
 
+import ru.hardy.server.entity.LogRow;
+
+import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MyWebDriverTask extends Thread{
+public class MyWebDriverTask {
     MyWebDriver myWebDriver;
-
+    TimerTask timerTaskStap;
+    Timer timerStap;
+    TimerTask timerTaskPosition;
+    Timer timerPosition;
+    LocalDateTime localDateTime;
+    Point position;
+    LogRow logRow;
     public MyWebDriverTask(MyWebDriver myWebDriver){
         this.myWebDriver = myWebDriver;
     }
 
-    public  void run(){
+    public  void start(){
 
 
-        TimerTask timerTaskStap = new TimerTask() {
+        timerTaskStap = new TimerTask() {
             @Override
             public void run() {
                 myWebDriver.circularStap();
             }
         };
-        Timer timerSap = new Timer();
-        timerSap.schedule(timerTaskStap, 0, 20);
+        timerStap = new Timer();
+        //интервал delay в 5 секунд (5000) по условию задачи
+        timerStap.schedule(timerTaskStap, 5000, 50);
 
 
 
-        TimerTask timerTaskPosition = new TimerTask() {
+        timerTaskPosition = new TimerTask() {
             @Override
             public void run() {
-                myWebDriver.getMousePosition();
+                Point mousePosition = myWebDriver.getMousePosition();
+                logRow = new LogRow(mousePosition.getX(), mousePosition.getY(), LocalDateTime.now(), myWebDriver.getId());
+
+                //TODO Отправка Socket
+
             }
         };
-        Timer timerPosition = new Timer();
-        timerPosition.schedule(timerTaskPosition, 0, 200);
+        timerPosition = new Timer();
+        timerPosition.schedule(timerTaskPosition, 0, myWebDriver.getPeriod());
     }
 
-//    public  void stopp(){
-//        myWebDriver.movementStop();
-//        myWebDriver.getWebDriver().close();
-//
-//        Thread.interrupted();
-//    }
+    public  void cansel(){
+        timerTaskStap.cancel();
+        timerStap.cancel();
+        timerTaskPosition.cancel();
+        timerPosition.cancel();
+        myWebDriver.getWebDriver().close();
+    }
 }

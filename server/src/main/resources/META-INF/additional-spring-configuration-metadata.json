@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "application.frequency",
+      "type": "java.lang.Integer",
+      "description": "Частота считывания  координат мыши  Т = 5 (1000- 1секунда)."
+  }
+] }
