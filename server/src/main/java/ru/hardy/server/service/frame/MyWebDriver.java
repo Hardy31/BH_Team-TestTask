@@ -10,7 +10,6 @@ import java.awt.*;
 
 @Slf4j
 @Getter
-//@ConfigurationProperties(prefix = "application.MyWebDriver")
 public class MyWebDriver {
     private MonitorResolution monitorResolution;
     private Integer id;     // Идентификатор WebDriver
@@ -20,7 +19,7 @@ public class MyWebDriver {
     private double mousePositionY;
     private WebDriverFrame webDriverFrame;
     private WebDriver webDriver;
-    //    @Value("${application.frequency}")
+
     private Integer period = 200;
     int radius;
 
@@ -122,8 +121,6 @@ public class MyWebDriver {
         mousePositionY = mousePoint.getY();
 
         log.info(" Mouse position X = {}, Y = {}", mousePositionX, mousePositionY);
-
-        //Здесь должна быть отправка координат мыши на Клиент или там гкуда они возвращаются.
         return mousePoint;
     }
 

@@ -6,29 +6,34 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class FullService {
+public class RestService {
 
     private final OkHttpClient okHttpClient = new OkHttpClient();
 
+    // этот метод переправляем запрос с Клиента на Сервер с командой  начать работу:
+    //открыть 3и окна  разместить в центре мышь, подождать 5 секунд и начать двигать мыщ по кругу.
+    // при этом  5 раз в секунду необходимо отправлять по socket данные с координатами  мыши.
     public void start() {
-        String prefixUrl = "http://localhost:8080/v1/switch/start";
+        String startUrl = "http://localhost:8080/v1/switch/start";
 //        Или через локальный IP    String prefixUrl = "http://192.168.31.207:8080/v1/switch/start";
+        sendingRequest(startUrl);
     }
 
     public void log() {
-        String prefixUrl = "http://localhost:8080//v1/log/file";
+        String logUrl = "http://localhost:8080//v1/log";
+        sendingRequest(logUrl);
     }
 
 
     public void finish() {
         String stopUrl = "http://localhost:8080//v1/switch/stop";
+        sendingRequest(stopUrl);
     }
 
 

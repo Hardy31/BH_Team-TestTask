@@ -1,3 +1,5 @@
+import java.time.LocalDateTime
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.1'
@@ -47,6 +49,11 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	// входная точка http://localhost:8080/swagger-ui/index.html
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
+	//Для для конвертации  LocalDateTime  в JSON и обратно
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2'
+
 
 
 

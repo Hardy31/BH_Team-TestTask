@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "log_row")
-public class LogRow {
+public class LogLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
