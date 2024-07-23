@@ -7,15 +7,15 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
-@Configuration
-@EnableWebSocket
-public class WebSockedConfig implements WebSocketConfigurer {
-    @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(logHandler(),"/logList");
-    }
-    @Bean
-    WebSocketHandler logHandler(){
-        return new LogHandler();
-    }
-}
+//@Configuration
+//@EnableWebSocket
+//public class WebSockedConfig implements WebSocketConfigurer {
+//    @Override
+//    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+//        registry.addHandler(logHandler(),"/logList");
+//    }
+//    @Bean
+//    WebSocketHandler logHandler(){
+////        return new LogHandler();
+//    }
+//}

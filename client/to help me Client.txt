@@ -5,5 +5,3 @@ swagger
 http://localhost:8080/swagger-ui/index.html         порт 8080  для client
 http://localhost:8082/swagger-ui/index.html         порт 8082  для server
 
-//однонаправленный socket нативный
-https://metanit.com/sharp/net/3.5.php

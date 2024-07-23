@@ -1,0 +1,3 @@
+LogLine(id=2, x=210.0, y=310.0, registeredAt=2024-07-07T23:32:42.010, webDriverId=4)
+LogLine(id=1, x=200.0, y=300.0, registeredAt=2024-07-07T23:32:42.020, webDriverId=4)
+LogLine(id=3, x=220.0, y=320.0, registeredAt=2024-07-07T23:32:42.040, webDriverId=4)
