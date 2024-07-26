@@ -1,7 +1,7 @@
 package ru.hardy.server.service.frame;
 
 import lombok.SneakyThrows;
-import ru.hardy.server.entity.LogLine;
+import ru.hardy.server.dto.LogLineDto;
 import ru.hardy.server.service.LogLineBlockQueue;
 
 import java.awt.*;
@@ -17,7 +17,7 @@ public class MyWebDriverTask {
     Timer timerPosition;
     LocalDateTime localDateTime;
     Point position;
-    LogLine logLine;
+    LogLineDto logLine;
     public MyWebDriverTask(MyWebDriver myWebDriver){
         this.myWebDriver = myWebDriver;
     }
@@ -42,7 +42,7 @@ public class MyWebDriverTask {
             @Override
             public void run() {
                 Point mousePosition = myWebDriver.getMousePosition();
-                logLine = new LogLine(mousePosition.getX(), mousePosition.getY(), LocalDateTime.now(), myWebDriver.getId());
+                logLine = new LogLineDto(mousePosition.getX(), mousePosition.getY(), LocalDateTime.now(), myWebDriver.getId());
                 //Запись LogLine в блокирующую очередь. Такка записываться в нее будут из 3х timerTaskPosition а читаться из Main
                 LogLineBlockQueue.getInstance().putt(logLine);
             }

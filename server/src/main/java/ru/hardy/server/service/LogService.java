@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LogService {
 
-
-    public void log()  {
-        log.info("Запись в  Лога в файл");
-
-//        LogRow logRow = new LogRow()
-        //TODO
-
-
-
-    }
+//
+//    public void log()  {
+//        log.info("Запись в  Лога в файл");
+//
+////        LogRow logRow = new LogRow()
+//        //TODO
+//
+//
+//
+//    }
 }

@@ -46,7 +46,8 @@ public class SwitchController {
     public String wsConfig(@RequestBody WsConfigurator wsConfigurator) {
         log.info("SwitchController wsConfig - {}", wsConfigurator);
         switchService.wsConfig(wsConfigurator);
-        return "SwitchController wsConfig - " +  wsConfigurator.toString();
+        return "SwitchController wsConfig ------ " +  wsConfigurator.toString();
+//        return "SwitchController wsConfig - " +  wsConfigurator.toString();
     }
 
 }

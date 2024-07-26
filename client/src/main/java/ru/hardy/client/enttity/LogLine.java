@@ -23,6 +23,10 @@ public class LogLine {
     LocalDateTime registeredAt;
     int webDriverId;
 
-
-
+    public LogLine(double x, double y, LocalDateTime registeredAt, int webDriverId) {
+        this.x = x;
+        this.y = y;
+        this.registeredAt = registeredAt;
+        this.webDriverId = webDriverId;
+    }
 }

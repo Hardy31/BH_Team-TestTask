@@ -1,7 +1,7 @@
 package ru.hardy.server.service;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.hardy.server.entity.LogLine;
+import ru.hardy.server.dto.LogLineDto;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -11,7 +11,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 @Slf4j
 public class LogLineBlockQueue {
     private static LogLineBlockQueue instance;
-    private BlockingQueue<LogLine> blockingQueue = new LinkedBlockingDeque<>();
+    private BlockingQueue<LogLineDto> blockingQueue = new LinkedBlockingDeque<>();
 
     private LogLineBlockQueue() {
     }
@@ -23,12 +23,12 @@ public class LogLineBlockQueue {
         return instance;
     }
 
-    public void putt(LogLine logLine) throws InterruptedException {
+    public void putt(LogLineDto logLine) throws InterruptedException {
         blockingQueue.put(logLine);
         log.info("-- BlockQueue  putt");
     }
 
-    public LogLine take() throws InterruptedException {
+    public LogLineDto take() throws InterruptedException {
         log.info("-- BlockQueue  take");
         return blockingQueue.take();
     }

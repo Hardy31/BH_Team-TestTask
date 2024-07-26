@@ -27,15 +27,17 @@ public class SwitchService {
     private final LogLineRepositiry logLineRepositiry;
 
     public void start() {
-        String startUrl = "http://localhost:8080/v1/web-drivers/start";
+        //Запрос на Server (Где будет запущены 3и WebDriver  c мышюю)
+        String startUrl = "http://localhost:8082/v1/web-drivers/start";
         sendingRequest(startUrl);
-        //поднять WS Client c дефолтными портом 8082
+        //поднять WS Client c gjhnjv с портом по дефолту 8082
+        // Listener потому что только слушает отправляемые сеорвером LogLin
         new WsClientListener(logLineRepositiry);
-        //todo Запись полученных данных в PSQL
+        // Запись полученных данных в PSQL
     }
 
     public void stop() {
-        String stopUrl = "http://localhost:8080/v1/web-drivers/stop";
+        String stopUrl = "http://localhost:8082/v1/web-drivers/stop";
         sendingRequest(stopUrl);
         //todo остановить WS Client
     }
@@ -97,9 +99,16 @@ public class SwitchService {
 
     public void wsConfig(WsConfigurator wsConfigurator) {
         String port = wsConfigurator.getPort();
+        log.info(" wsConfig -- {}", wsConfigurator.toString());
         String configUrl = "http://localhost:8082/v1/web-drivers/config/" + port;
         //Запуск WS WSServer  с новым портом
         sendingRequest(configUrl);
+
+        try {
+            Thread.sleep(3000);     //ждем пока запустится сервер
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         //Запуск WS Client c новым портом
         new WsClientListener(logLineRepositiry, port);
     }
