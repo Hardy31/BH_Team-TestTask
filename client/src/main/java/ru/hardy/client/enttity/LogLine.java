@@ -18,10 +18,10 @@ public class LogLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    double x;
-    double y;
-    LocalDateTime registeredAt;
-    int webDriverId;
+    double x;                   //позиция по  х
+    double y;                   //позиция по у
+    LocalDateTime registeredAt; // время когда были получены данные
+    int webDriverId;            // идентификатор ВебДрайвера(окна браузера)
 
     public LogLine(double x, double y, LocalDateTime registeredAt, int webDriverId) {
         this.x = x;

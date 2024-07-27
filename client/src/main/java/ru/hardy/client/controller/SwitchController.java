@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.hardy.client.dto.WsConfigurator;
+import ru.hardy.client.dto.WsConfiguratorDto;
 import ru.hardy.client.service.SwitchService;
 
 @Slf4j
@@ -33,7 +33,7 @@ public class SwitchController {
         return "Server stop";
     }
 
-    //запись данных поступивших от сервера в файл/консоль (переключатель)
+    //запись данных поступивших от сервера в файл log.txt
     @GetMapping("/log")
     public String log() {
         log.info("SwitchController log()");
@@ -43,10 +43,10 @@ public class SwitchController {
 
     //изменение дефолтных конфигурационных данных для WS соединения
     @PostMapping("/wsConfig")
-    public String wsConfig(@RequestBody WsConfigurator wsConfigurator) {
-        log.info("SwitchController wsConfig - {}", wsConfigurator);
-        switchService.wsConfig(wsConfigurator);
-        return "SwitchController wsConfig ------ " +  wsConfigurator.toString();
+    public String wsConfig(@RequestBody WsConfiguratorDto wsConfiguratorDto) {
+        log.info("SwitchController wsConfig - {}", wsConfiguratorDto);
+        switchService.wsConfig(wsConfiguratorDto);
+        return "SwitchController wsConfig ------ " +  wsConfiguratorDto.toString();
 //        return "SwitchController wsConfig - " +  wsConfigurator.toString();
     }
 

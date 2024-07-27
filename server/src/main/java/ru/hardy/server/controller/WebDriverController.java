@@ -38,7 +38,7 @@ public class WebDriverController {
         log.info("WebDriverController config port - {}", port);
         webDriverService.changePort(port);
 
-        System.setProperty("server.port", port);
+//        System.setProperty("server.port", port);
 
         return "порт трансляции  изменен";
     }

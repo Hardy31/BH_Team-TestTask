@@ -5,15 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hardy.client.dto.WsConfigurator;
+import ru.hardy.client.dto.WsConfiguratorDto;
 import ru.hardy.client.enttity.LogLine;
 import ru.hardy.client.repository.LogLineRepositiry;
 import ru.hardy.client.service.ws_client.WsClientListener;
+import ru.hardy.client.service.ws_client.WsConfigurator;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,17 +22,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SwitchService {
     private final OkHttpClient okHttpClient = new OkHttpClient();
-    @Autowired
     private final LogLineRepositiry logLineRepositiry;
 
     public void start() {
         //Запрос на Server (Где будет запущены 3и WebDriver  c мышюю)
         String startUrl = "http://localhost:8082/v1/web-drivers/start";
         sendingRequest(startUrl);
-        //поднять WS Client c gjhnjv с портом по дефолту 8082
-        // Listener потому что только слушает отправляемые сеорвером LogLin
+        //поднимает WS Client с портом по дефолту 8082
+        // Listener потому что только слушает отправляемые сервером LogLin
         new WsClientListener(logLineRepositiry);
-        // Запись полученных данных в PSQL
+
     }
 
     public void stop() {
@@ -44,73 +42,52 @@ public class SwitchService {
 
     public void Log()  {
         //получаем список из БД с сортировкых по : T - по времени, X - по значнию x, Y - по значению y.
-        //Несколько вариантов исполнения,
 
-
-
-//        List<LogLine> logLists = logLineRepositiry.findAll();
-////        log.info(logLists.toString());
-//
-//
-//                    List<LogLine> sortedLogs = logLists.stream().sorted(
-//                    Comparator.comparing(LogLine::getRegisteredAt).thenComparing(LogLine::getX).thenComparing(LogLine::getY)
-//            ).collect(Collectors.toList());
-//
-//        for(LogLine logLine : sortedLogs){
-//            log.info( logLine.toString());
-//        }
-
-//        //сохранение данных в txt файл
         try{
-//            List<LogLine> logLines = logLineRepositiry.findAllOrderByregisteredAtOrderByxOrderByy();
-//            List<LogLine> logLines = logLineRepositiry.findAllSortetByTXY();
-
+            //получаем все данные
             List<LogLine> logLists = logLineRepositiry.findAll();
             log.info(logLists.toString());
 
-
+            //сортируем в стриме
             List<LogLine> sortedLogs = logLists.stream().sorted(
                     Comparator.comparing(LogLine::getRegisteredAt).thenComparing(LogLine::getX).thenComparing(LogLine::getY)
             ).collect(Collectors.toList());
-//
 
-
-
-
-//            log.info(logLines.toString());
             log.info(sortedLogs.toString());
-//            FileWriter writer = new FileWriter("Lib.txt");
+            //пишем отсортированные данные  в файл Log.txt
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File("Log.txt")));
-
             for(LogLine logLine : sortedLogs)
             {
-//                log.info(logLine.toString());
                 String line = logLine.toString();
                 writer.write(line);
                 writer.write("\n");
-
             }
             writer.flush();
             writer.close();
         }catch (IOException ex){ex.printStackTrace();}
-
-
     }
 
-    public void wsConfig(WsConfigurator wsConfigurator) {
-        String port = wsConfigurator.getPort();
+    public void wsConfig(WsConfiguratorDto wsConfiguratorDto) {
+        //Копируем полученные конфигурационные данные в Singltone WsConfigurator
+        WsConfigurator wsConfigurator = WsConfigurator.getInstance();
+        wsConfigurator.setIp(wsConfiguratorDto.getIp());
+        wsConfigurator.setPort(wsConfiguratorDto.getPort());
+        wsConfigurator.setFrequency(wsConfiguratorDto.getFrequency());
+
         log.info(" wsConfig -- {}", wsConfigurator.toString());
-        String configUrl = "http://localhost:8082/v1/web-drivers/config/" + port;
-        //Запуск WS WSServer  с новым портом
+
+        //Пересылаем новый порт соединения для WS c
+        String configUrl = "http://localhost:8082/v1/web-drivers/config/" + wsConfigurator.getPort();
         sendingRequest(configUrl);
 
         try {
-            Thread.sleep(3000);     //ждем пока запустится сервер
+            Thread.sleep(6000);     //ждем пока запустится сервер
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        //Запуск WS Client c новым портом
-        new WsClientListener(logLineRepositiry, port);
+        //поднимает WS Client с новым портом
+
+        new WsClientListener(logLineRepositiry);
     }
 
 
