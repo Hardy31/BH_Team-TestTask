@@ -28,7 +28,7 @@ public class SenderWsMessage {
                 outgoingMessage);
 
 
-        log.info(" SenderWsMessage sendMessage - {}", outgoingMessage.getContent());
+        log.info(" SenderWsMessage sendMessage - {}, Port - {}", outgoingMessage.getContent(), "PORT");
 
 //        https://stackoverflow.com/questions/33004078/nullpointerexception-on-simpmessagingtemplate-in-spring
     }

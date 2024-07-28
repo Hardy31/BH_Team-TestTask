@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.messaging.WebSocketStompClient;
 import ru.hardy.client.dto.WsConfiguratorDto;
 import ru.hardy.client.enttity.LogLine;
 import ru.hardy.client.repository.LogLineRepositiry;
@@ -29,7 +30,6 @@ public class SwitchService {
         String startUrl = "http://localhost:8082/v1/web-drivers/start";
         sendingRequest(startUrl);
         //поднимает WS Client с портом по дефолту 8082
-        // Listener потому что только слушает отправляемые сервером LogLin
         new WsClientListener(logLineRepositiry);
 
     }
@@ -37,7 +37,9 @@ public class SwitchService {
     public void stop() {
         String stopUrl = "http://localhost:8082/v1/web-drivers/stop";
         sendingRequest(stopUrl);
-        //todo остановить WS Client
+        //остананвливаем WS Client
+        WebSocketStompClient stompClient = WsConfigurator.getInstance().getStompClient();
+        stompClient.stop();
     }
 
     public void Log()  {

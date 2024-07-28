@@ -21,8 +21,9 @@ public class WsClientListener {
 
     public WsClientListener(LogLineRepositiry logLineRepositiry){
         this.logLineRepositiry = logLineRepositiry;
-        WebSocketClient client = new StandardWebSocketClient();
-        WebSocketStompClient stompClient = new WebSocketStompClient(client);
+//        WebSocketClient client = new StandardWebSocketClient();
+//        WebSocketStompClient stompClient = new WebSocketStompClient(client);
+        WebSocketStompClient stompClient = WsConfigurator.getInstance().getStompClient();
         stompClient.setMessageConverter(new MappingJackson2MessageConverter()); //Замена конвертора
 //      todo -   stompClient.setMessageConverter(new StringMessageConverter()); //С этим конвертором не хочет работать
 
